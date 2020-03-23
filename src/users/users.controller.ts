@@ -4,11 +4,12 @@ import {
   Post,
   HttpException,
   HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserDTO } from './user.dto';
+import { CreateUserDTO } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -18,7 +19,8 @@ export class UsersController {
   ) {}
 
   @Post()
-  async create(@Body() userDTO: UserDTO) {
+  @HttpCode(HttpStatus.CREATED)
+  async create(@Body() userDTO: CreateUserDTO) {
     const userExists: User = await this.usersRepository.findOne({
       where: { login: userDTO.login },
     });
@@ -35,6 +37,6 @@ export class UsersController {
 
     const user = new User(userDTO.login, userDTO.password);
 
-    return await this.usersRepository.save(user);
+    await this.usersRepository.save(user);
   }
 }
