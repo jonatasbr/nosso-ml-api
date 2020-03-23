@@ -1,27 +1,27 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 
 @Entity()
 export class User {
-  constructor(_login: string, _password: string) {
-    (this.login = _login), (this.password = _password);
+  constructor(login: string, password: string) {
+    this.login = login;
+    this.createdAt = new Date();
+    this.password = password ? password : '';
   }
 
   @PrimaryGeneratedColumn()
-  id: number;
+  readonly id: number;
 
   @Column({ nullable: false, unique: true })
   login: string;
 
   @Column({ name: 'password', nullable: false })
-  password: string;
+  private _password: string;
 
   @Column({ name: 'created_at', nullable: false })
   createdAt: Date;
 
-  @BeforeInsert()
-  async modifyFields() {
-    this.createdAt = new Date();
-    this.password = await bcrypt.hash(this.password, 8);
+  private set password(plainText: string) {
+    this._password = bcrypt.hashSync(plainText, bcrypt.genSaltSync());
   }
 }
