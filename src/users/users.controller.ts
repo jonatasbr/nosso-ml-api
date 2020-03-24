@@ -14,20 +14,6 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() userDTO: CreateUserDTO) {
-    // const userExists: User = await this.usersRepository.findOne({
-    //   where: { login: userDTO.login },
-    // });
-
-    // if (userExists) {
-    //   throw new HttpException(
-    //     {
-    //       status: HttpStatus.BAD_REQUEST,
-    //       error: 'Email is already registered',
-    //     },
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
-
     const user = new User(userDTO.login, userDTO.password);
 
     await this.usersRepository.save(user);
