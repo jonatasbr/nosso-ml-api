@@ -3,6 +3,11 @@ import * as bcrypt from 'bcryptjs';
 
 @Entity()
 export class User {
+  /**
+   *
+   * @param login a valid email
+   * @param password not encrypted
+   */
   constructor(login: string, password: string) {
     this.login = login;
     this.createdAt = new Date();

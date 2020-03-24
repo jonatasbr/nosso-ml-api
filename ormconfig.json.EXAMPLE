@@ -5,8 +5,8 @@
   "username": "",
   "password": "",
   "database": "",
-  "entities": ["dist/**/*.entity{.ts,.js}"],
   "entities": ["src/**/*.entity{.ts,.js}"],
+  "logging": true,
   "migrationsTableName": "_migration_",
   "migrations": ["migration/*{.ts,.js}"],
   "cli": {

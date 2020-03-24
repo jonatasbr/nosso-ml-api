@@ -8,9 +8,8 @@ export class UsersCreate1584662263856 implements MigrationInterface {
         columns: [
           { name: 'id', type: 'serial', isPrimary: true },
           { name: 'login', type: 'varchar', isUnique: true },
-          { name: 'password_hash', type: 'varchar' },
+          { name: 'password', type: 'varchar' },
           { name: 'created_at', type: 'timestamp' },
-          { name: 'updated_at', type: 'timestamp' },
         ],
       }),
       true,
