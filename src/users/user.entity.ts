@@ -29,4 +29,12 @@ export class User {
   private set password(plainText: string) {
     this._password = bcrypt.hashSync(plainText, bcrypt.genSaltSync());
   }
+
+  /**
+   *
+   * @param password a plain text to compare to password encrypted in the database
+   */
+  isPasswordValid(password: string) {
+    return bcrypt.compareSync(password, this._password);
+  }
 }
